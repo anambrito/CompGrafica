@@ -1,0 +1,191 @@
+#include "draw.h"
+
+void Draw(float tamanho1, float tamanho2, GLfloat textura){ //draw generica
+	
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, textura);
+	glBegin(GL_TRIANGLE_FAN);
+
+	glTexCoord2f(0, 0); glVertex3f(-tamanho1, -tamanho2,  0);
+    glTexCoord2f(1, 0); glVertex3f( tamanho1, -tamanho2,  0);
+    glTexCoord2f(1, 1); glVertex3f( tamanho1,  tamanho2,  0);
+    glTexCoord2f(0, 1); glVertex3f(-tamanho1,  tamanho2,  0);
+	
+	glEnd();
+	glDisable(GL_TEXTURE_2D);	
+
+	
+}
+
+void DrawObj(){ //desenhar as cordenadas do obj
+
+	glPushMatrix(); 
+
+	glEnable(GL_TEXTURE_2D);
+
+	glBindTexture(GL_TEXTURE_2D, texturaObj);
+	glBegin(GL_TRIANGLE_FAN);
+
+		glTexCoord2f(0, 0); glVertex3f(posicaoObj.x, posicaoObj.y, 0);
+		glTexCoord2f(1, 0); glVertex3f(posicaoObj.x + tamanhoObj.largura, posicaoObj.y, 0);
+		glTexCoord2f(1, 1); glVertex3f(posicaoObj.x + tamanhoObj.largura, posicaoObj.y + tamanhoObj.altura, 0);
+		glTexCoord2f(0, 1); glVertex3f(posicaoObj.x, posicaoObj.y + tamanhoObj.altura, 0);
+
+	glEnd();
+	glDisable(GL_TEXTURE_2D);
+	
+	glPopMatrix();
+
+}
+
+void DrawNave(GLuint textura){ //desenhar as cordenadas da nave
+
+	glPushMatrix(); 
+
+	glTranslatef(posicaoNaveX, posicaoNaveY, 0);
+
+	glEnable(GL_TEXTURE_2D);
+
+	glBindTexture(GL_TEXTURE_2D, textura);
+	glRotatef(rotacao, 0, 0, 1);
+	glBegin(GL_TRIANGLE_FAN);
+
+		glTexCoord2f(0, 0); glVertex3f( ((-1)*(posicaoQuadrado.x)), ((-1)*(posicaoQuadrado.y)), 0);
+		glTexCoord2f(1, 0); glVertex3f((posicaoQuadrado.x), ((-1)*(posicaoQuadrado.y)), 0);
+		glTexCoord2f(1, 1); glVertex3f((posicaoQuadrado.x ), (posicaoQuadrado.y), 0);
+		glTexCoord2f(0, 1); glVertex3f(((-1)*(posicaoQuadrado.x)), (posicaoQuadrado.y), 0);
+
+	glEnd();
+	glDisable(GL_TEXTURE_2D);
+
+	glPopMatrix();
+
+}
+void drawTorp(torp vector){ //desenhar as cordenadas do torpedo
+
+	glPushMatrix(); 
+
+	glTranslatef(vector.x, vector.y, 0);
+
+	glEnable(GL_TEXTURE_2D);
+
+	glBindTexture(GL_TEXTURE_2D, texturaObj);
+	glRotatef(vector.rotacao, 0, 0, 1);
+	glBegin(GL_TRIANGLE_FAN);
+
+		glTexCoord2f(0, 0); glVertex3f( ((-1)*(posicaoQuadrado.x)), ((-1)*(posicaoQuadrado.y)), 0);
+		glTexCoord2f(1, 0); glVertex3f((posicaoQuadrado.x), ((-1)*(posicaoQuadrado.y)), 0);
+		glTexCoord2f(1, 1); glVertex3f((posicaoQuadrado.x ), (posicaoQuadrado.y), 0);
+		glTexCoord2f(0, 1); glVertex3f(((-1)*(posicaoQuadrado.x)), (posicaoQuadrado.y), 0);
+
+	glEnd();
+	glDisable(GL_TEXTURE_2D);
+
+	glPopMatrix();
+
+}
+
+void DrawObstacle(float x, float x1, float y, float y1){ //desenhar as cordenadas do obstacle
+
+	glBegin(GL_TRIANGLE_FAN);
+
+		glVertex3f(x, y, 0);
+		glVertex3f(x+x1,y, 0);
+		glVertex3f(x+x1, y+y1, 0);
+		glVertex3f(x, y+y1, 0);
+
+	glEnd();
+}
+
+void newTorpedo(){
+
+	tamSquad++;
+	squad[0].x = posicaoNaveX;
+	squad[0].y = posicaoNaveY;
+	squad[tamSquad].x = squad[tamSquad-1].x;
+	squad[tamSquad].y = squad[tamSquad-1].y;
+	squad[tamSquad].larg = .2;
+	squad[tamSquad].alt = .2;
+	
+}
+
+void colisao(){
+
+	int limite = 2*telaLimite;		
+
+	float distancia = sqrt(pow(((posicaoNaveX) - (posicaoObj.x + tamanhoObj.largura/2)),2) +	(pow(((posicaoNaveY) - (posicaoObj.y + tamanhoObj.largura/2)),2))); // calcula a distancia entre o objeto e a nave através de pitagoras
+
+		if((distancia < .7)){ //quando a distancia é igual a zero, novas coordenadas para obj
+
+			Mix_PlayChannel( -1, somObj, 0 );
+			newTorpedo();
+			posicaoObj.x = rand()%limite - telaLimite;
+			posicaoObj.y = rand()%limite - telaLimite;
+			DrawObj();			//desenha obj
+			
+	
+		}
+
+}
+
+
+
+void desenhaCena(void){ //desenha
+
+	glClear(GL_COLOR_BUFFER_BIT);
+	
+		if(ModoDeJogo==0) {			//mode 0
+		Draw(telaLimite,telaLimite,texturaSpaceWASD); //space 
+		DrawObj();					//obj
+		DrawNave(texturaNaveWASD);  // nave
+		}
+	
+		if (ModoDeJogo==1){ 		//mode 1
+		Draw(telaLimite,telaLimite,texturaSpaceAD);   //space
+		DrawObj();					//obj
+		DrawNave(texturaNaveAD); 	// nave
+		DrawObstacle(2,0.5,-2,-5);
+		}
+	
+		colisao();
+		int i;
+		if(tamSquad > 0){
+
+			for (i=tamSquad; i>0; i--){
+				drawTorp(squad[i]);
+
+			}
+
+		}
+		
+		if(telaMenu == 1)
+		Draw(telaLimite,telaLimite,texturaMenu);
+
+		if(telaCreditos == 1)
+		Draw(telaLimite,telaLimite,texturaCredits);
+
+		if(telaComandos == 1)
+		Draw(telaLimite,telaLimite,texturaControls);
+
+		if((telaMenu == 0) && (telaComandos == 0) && (telaCreditos == 0)){ //as telas a seguir não funcionam se MeNU e telas estiverem ativados
+				
+			if(telaPause == 1) //Pause
+			Draw(3,1.5,texturaPause);
+		
+
+			if(telaReinicia == 1) //reinicia
+			Draw(3,1.5,texturaReinicia);
+		
+
+			if(telaGameOver == 1) //gameover
+			Draw(3,1.5,texturaGameOver);
+		
+		
+			if(telaESC == 1) //esc
+			Draw(3,1.5,texturaESC);
+		}
+		
+	glutSwapBuffers();
+}
+
+

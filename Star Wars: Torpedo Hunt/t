@@ -1,0 +1,1 @@
+g++ main.c callbacksGerais.c draw.c movimento.c teclado.c texturas.c -c  -I. -I/usr/include/SOIL -lglut -lGLU -lSOIL -lGLEW -lGL -lm

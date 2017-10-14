@@ -1,0 +1,76 @@
+#include "callbacksGerais.h"
+
+
+void init(){
+
+ SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+	
+	if(!Mix_PlayingMusic()){
+
+		 Mix_OpenAudio( 22050, MIX_DEFAULT_FORMAT, 2, 1024 ); //- inicializa SDL_Mixer
+		 atexit(Mix_CloseAudio);
+		 musica = Mix_LoadMUS("bonjovi.mp3");
+		 Mix_VolumeMusic(100);
+		 somObj = Mix_LoadWAV("SomObj.wav");
+		 somPortal = Mix_LoadWAV("portal.wav");
+		 somMenu = Mix_LoadWAV("menu.wav");
+		 somMais = Mix_LoadWAV("mais.wav");
+		 somMenos = Mix_LoadWAV("menos.wav");
+		 
+
+		if(somObj == NULL)
+        printf( "Failed to load medium sound effect[OBJ]! SDL_mixer Error: %s\n", Mix_GetError() );
+	
+		if(musica == NULL)
+        printf( "Failed to load medium sound effect[musica]! SDL_mixer Error: %s\n", Mix_GetError() );
+  		
+
+		if(somPortal == NULL)
+        printf( "Failed to load medium sound effect [Portal]! SDL_mixer Error: %s\n", Mix_GetError() );
+		
+		if(somMenu == NULL)
+        printf( "Failed to load medium sound effect [MENU]! SDL_mixer Error: %s\n", Mix_GetError() );
+		
+		if(somMenos == NULL)
+        printf( "Failed to load medium sound effect [MENOS]! SDL_mixer Error: %s\n", Mix_GetError() );
+	
+		if(somMais== NULL)
+        printf( "Failed to load medium sound effect [MAIS]! SDL_mixer Error: %s\n", Mix_GetError() );
+		
+
+		Mix_PlayMusic(musica, -1);
+
+	}
+
+
+}
+
+
+void inicializa(void){
+
+	glClearColor(0, 0, 0, 0);
+	
+	posicaoQuadrado.x = .7;
+	posicaoQuadrado.y = .7;
+
+	tamanhoQuadrado.largura = 1;
+	tamanhoQuadrado.altura = 1;	
+
+	posicaoObj.x = -3;
+	posicaoObj.y = 0;
+
+	tamanhoObj.largura = 1;
+	tamanhoObj.altura = 1;
+      
+}
+
+void redimensiona(int w, int h){
+
+	glViewport(0, 0, w, h);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(-telaLimite, telaLimite, -telaLimite, telaLimite, -telaLimite,telaLimite);
+	
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+}
