@@ -1,2 +1,3 @@
 # cmpGrafic
-Computação Gráfica - TPs
+Trabalhos Práticos de Computação Gráfica
+2017
