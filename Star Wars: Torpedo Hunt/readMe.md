@@ -1,8 +1,8 @@
 
-###Baixar o arquivo: https://1drv.ms/u/s!AjLFTDk6w8CijLduLin5bJjdzhpo1A
-###PARA COMPILAR: make && ./Stack
+### Baixar o arquivo: https://1drv.ms/u/s!AjLFTDk6w8CijLduLin5bJjdzhpo1A
+### PARA COMPILAR: make && ./Stack
 
-##Itens obrigatórios: 
+## Itens obrigatórios: 
 
 1. Câmera em um ambiente 2D;
 2. Personagem controlável pelas setas ou 'WASD';
@@ -16,7 +16,7 @@
  * Uma mensagem de confirmação é exibida para as ações de reiniciar e encerrar o jogo.
 
 
-##Itens sobressalentes:
+## Itens sobressalentes:
 
 1. Menu
 2. Modos de jogo diferentes com:
