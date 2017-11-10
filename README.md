@@ -1,3 +1,4 @@
-# cmpGrafic
+# CompGrafica
 Trabalhos Práticos de Computação Gráfica
-2017
+Professor Flávio Coutinho
+Setembro 2017
