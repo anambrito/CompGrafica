@@ -9,13 +9,13 @@ void init(){
 
 		 Mix_OpenAudio( 22050, MIX_DEFAULT_FORMAT, 2, 1024 ); //- inicializa SDL_Mixer
 		 atexit(Mix_CloseAudio);
-		 musica = Mix_LoadMUS("starwars.mp3");
+		 musica = Mix_LoadMUS("musicas/starwars.mp3");
 		 Mix_VolumeMusic(100);
-		 somObj = Mix_LoadWAV("SomObj.wav");
-		 somPortal = Mix_LoadWAV("portal.wav");
-		 somMenu = Mix_LoadWAV("menu.wav");
-		 somMais = Mix_LoadWAV("mais.wav");
-		 somMenos = Mix_LoadWAV("menos.wav");
+		 somObj = Mix_LoadWAV("musicas/SomObj.wav");
+		 somPortal = Mix_LoadWAV("musicas/portal.wav");
+		 somMenu = Mix_LoadWAV("musicas/menu.wav");
+		 somMais = Mix_LoadWAV("musicas/mais.wav");
+		 somMenos = Mix_LoadWAV("musicas/menos.wav");
 		 
 
 		if(somObj == NULL)

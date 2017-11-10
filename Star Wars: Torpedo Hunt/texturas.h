@@ -3,6 +3,7 @@
 
 #include "func.h"
 
+int carregaTextura(char*) ;
 void Textura(void);
 
 
