@@ -1,11 +1,11 @@
 
 # libraries to download: 
 
-sudo apt-get install libsoil-dev
-sudo apt-get install libglew-dev
-sudo apt-get install freeglut3-dev
-sudo apt-get install libsdl1.2-dev
-sudo apt-get install libsdl-mixer1.2-dev 
+sudo apt-get install libsoil-dev;
+sudo apt-get install libglew-dev;
+sudo apt-get install freeglut3-dev;
+sudo apt-get install libsdl1.2-dev;
+sudo apt-get install libsdl-mixer1.2-dev;
 
 
 ### to compile: make && ./Stack
