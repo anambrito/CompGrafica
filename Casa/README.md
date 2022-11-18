@@ -1,8 +1,7 @@
-#Baixar o arquivo: https://drive.google.com/open?id=0B-TUllOsSVUEclFyQzRsMWJBb28
 #Link do Vídeo: https://youtu.be/tB8raV3NBUg
 #PARA COMPILAR: make && ./Stack
 
-### Alunos: Ana Maria Brito e Lahyri Aurbach
+### Alunos: Ana Maria Brito
 
 #Itens obrigatórios: 
 
